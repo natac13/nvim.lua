@@ -1,3 +1,13 @@
+local ufo_status, ufo = pcall(require, "ufo")
+if not ufo_status then
+  return
+end
+
+ufo.setup()
+
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
@@ -15,8 +25,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ["<C-Space>"] = cmp.mapping.complete(),
 })
 
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+  cmp_mappings['<Tab>'] = nil
+  cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
@@ -39,7 +49,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
   vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>lS", function() vim.lsp.buf.dynamic_workspace_symbols() end, opts)
+  vim.keymap.set("n", "<leader>lS", function() vim.lsp.buf._workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>ls", function() vim.lsp.buf.document_symbol() end, opts)
   vim.keymap.set("n", "gl", function() vim.diagnostic.open_float() end, opts)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
@@ -50,6 +60,26 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-k>", function() vim.lsp.buf.signature_help() end, opts)
 
 end)
+
+lsp.format_on_save({
+  format_opts = {
+    timeout_ms = 10000,
+  },
+  servers = {
+    ['null-ls'] = {'javascript', 'typescript', 'typescriptreact'}
+  }
+})
+
+lsp.set_server_config({
+  capabilities = {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+    },
+  }
+})
 
 lsp.setup()
 
@@ -64,6 +94,25 @@ require('typescript').setup({
 })
 
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = true,
+})
+
+
+local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_status_ok then
+	return
+end
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+local formatting = null_ls.builtins.formatting
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+local diagnostics = null_ls.builtins.diagnostics
+
+null_ls.setup({
+	debug = false,
+	sources = {
+		formatting.prettierd,
+		formatting.stylua,
+	},
 })
 

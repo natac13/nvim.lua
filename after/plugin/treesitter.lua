@@ -5,7 +5,7 @@ end
 
 treesitter.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "help", "javascript", "tsx", "typescript", "c", "lua", "rust" },
+  ensure_installed = { "help", "javascript", "tsx", "typescript", "c_sharp", "c", "lua", "rust" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -25,8 +25,16 @@ treesitter.setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
-vim.opt.foldlevel = 99
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false
+--
+-- vim.opt.foldmethod     = 'expr'
+-- vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+vim.opt.nofoldenable   = true -- disable folding
+---WORKAROUND
+vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
+  group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
+  callback = function()
+    vim.opt.foldmethod     = 'expr'
+    vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+  end
+})
+---ENDWORKAROUND

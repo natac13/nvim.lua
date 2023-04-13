@@ -42,6 +42,8 @@ return packer.startup(function(use)
   use { "nvim-telescope/telescope-fzf-native.nvim", run = 'make', cond = vim.fn.executable 'make' == 1 }
   use({ "nvim-telescope/telescope-ui-select.nvim" }) -- for showing lsp code actions
 
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+
   use("tpope/vim-surround")
 
   use("tpope/vim-sleuth")
@@ -59,6 +61,18 @@ return packer.startup(function(use)
   use('folke/which-key.nvim')
 
   use('jose-elias-alvarez/typescript.nvim')
+
+  use('jose-elias-alvarez/null-ls.nvim')
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  }
+
+  use('nvim-treesitter/nvim-treesitter-context')
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
@@ -88,7 +102,7 @@ return packer.startup(function(use)
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
   }
-  
+
   use("github/copilot.vim")
 
   -- Automatically set up your configuration after cloning packer.nvim

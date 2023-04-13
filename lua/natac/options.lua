@@ -62,5 +62,8 @@ opt.updatetime = 50
 opt.timeout = true
 opt.timeoutlen = 300
 
-opt.foldmethod = 'syntax'
+opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = false
 
