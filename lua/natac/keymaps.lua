@@ -1,5 +1,6 @@
 -- set leader key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local keymap = vim.keymap -- for conciseness
 
@@ -20,8 +21,8 @@ keymap.set("n", "<leader><ENTER>", ":nohl<CR>")
 keymap.set("n", "x", '"_x')
 
 -- window management
-keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
+keymap.set("n", "<leader>|", "<C-w>v") -- split window vertically
+keymap.set("n", "<leader>-", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
 
@@ -37,7 +38,10 @@ keymap.set("n", "<C-k>", "<C-W>k")
 keymap.set("n", "<C-l>", "<C-W>l")
 keymap.set("n", "<C-h>", "<C-W>h")
 
-----------------------
--- Plugin Keybinds
-----------------------
+keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+
+-- remap for dealing with word wrap
+keymap.set("n", 'k', 'v:count == 0 ? "gk" : "k"', {expr = true, silent = true})
+keymap.set("n", 'j', 'v:count == 0 ? "gj" : "j"', {expr = true, silent = true})
 

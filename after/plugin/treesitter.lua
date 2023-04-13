@@ -5,7 +5,7 @@ end
 
 treesitter.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "help", "javascript", "typescript", "c", "lua", "rust" },
+  ensure_installed = { "help", "javascript", "tsx", "typescript", "c", "lua", "rust" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -26,7 +26,7 @@ treesitter.setup {
   },
 }
 
-vim.opt.foldlevel = 20
+vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = true
+vim.opt.foldenable = false

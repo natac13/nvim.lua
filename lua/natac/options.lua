@@ -28,12 +28,14 @@ opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 opt.scrolloff = 10
 -- opt.colorcolumn = "80"
 
+-- enable break indent
+opt.breakindent = true
 
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
 -- clipboard
--- opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 opt.splitright = true -- split vertical window to the right
@@ -41,18 +43,24 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- opt.iskeyword:append("-") -- consider string-string as whole word
 
+-- Set completeopt to have a better completion experience
+opt.completeopt = "menuone,noselect"
+
+
 
 -- backup
 opt.swapfile = false
 opt.backup = false
--- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
--- vim.opt.undofile = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
 
 -- search
 opt.hlsearch = true
 opt.incsearch = true
 
 opt.updatetime = 50
+opt.timeout = true
+opt.timeoutlen = 300
 
 opt.foldmethod = 'syntax'
 

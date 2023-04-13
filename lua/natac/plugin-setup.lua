@@ -56,6 +56,10 @@ return packer.startup(function(use)
 
   use('nvim-lualine/lualine.nvim')
 
+  use('folke/which-key.nvim')
+
+  use('jose-elias-alvarez/typescript.nvim')
+
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',
