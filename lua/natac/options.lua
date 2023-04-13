@@ -54,3 +54,5 @@ opt.incsearch = true
 
 opt.updatetime = 50
 
+opt.foldmethod = 'syntax'
+
