@@ -32,46 +32,102 @@ lsp.on_attach(function(client, bufnr)
 
 	vim.keymap.set("n", "gd", function()
 		vim.lsp.buf.definition()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Go to definition",
+	})
 	vim.keymap.set("n", "gD", function()
 		vim.lsp.buf.declaration()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Go to declaration",
+	})
 	vim.keymap.set("n", "gi", function()
 		vim.lsp.buf.implementation()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Go to implementation",
+	})
 	vim.keymap.set("n", "K", function()
 		vim.lsp.buf.hover()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Show hover",
+	})
 	vim.keymap.set("n", "<leader>lS", function()
 		vim.lsp.buf._workspace_symbol()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Workspace symbol",
+	})
 	vim.keymap.set("n", "<leader>ls", function()
 		vim.lsp.buf.document_symbol()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Document symbol",
+	})
 	vim.keymap.set("n", "gl", function()
 		vim.diagnostic.open_float()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Show diagnostics",
+	})
 	vim.keymap.set("n", "[d", function()
 		vim.diagnostic.goto_next()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Next diagnostic",
+	})
 	vim.keymap.set("n", "]d", function()
 		vim.diagnostic.goto_prev()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Previous diagnostic",
+	})
 	vim.keymap.set("n", "<leader>ca", function()
 		vim.lsp.buf.code_action()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Code action",
+	})
 	vim.keymap.set("n", "gr", function()
 		vim.lsp.buf.references()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Go to References",
+	})
 	vim.keymap.set("n", "<leader>lr", function()
 		vim.lsp.buf.rename()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Rename symbol",
+	})
 	vim.keymap.set("i", "gs", function()
 		vim.lsp.buf.signature_help()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Signature help",
+	})
 	vim.keymap.set("n", "<leader>lf", function()
 		vim.lsp.buf.formatting()
-	end, opts)
+	end, {
+		buffer = opts.buffer,
+		remap = opts.remap,
+		desc = "Format Current File",
+	})
 end)
 
 lsp.set_server_config({
@@ -93,9 +149,21 @@ lsp.setup()
 require("typescript").setup({
 	server = {
 		on_attach = function(client, bufnr)
-			vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
-			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
-			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
+			vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>", {
+				buffer = bufnr,
+				remap = false,
+				desc = "Rename file",
+			}) -- rename file and update imports
+			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>", {
+				buffer = bufnr,
+				remap = false,
+				desc = "Organize imports",
+			}) -- organize imports (not in youtube nvim video)
+			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>", {
+				buffer = bufnr,
+				remap = false,
+				desc = "Remove unused imports",
+			}) -- remove unused variables (not in youtube nvim video)
 		end,
 	},
 })

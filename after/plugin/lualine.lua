@@ -1,10 +1,15 @@
 local status, lualine = pcall(require, "lualine")
 if not status then
-  return
+	return
 end
 
 lualine.setup({
-  options = {
-    theme = "gruvbox-material"
-  }
+	options = {
+		theme = "gruvbox-material",
+		-- component_separators = "|",
+		-- section_separators = "",
+	},
+	sections = {
+		lualine_a = { "buffers" },
+	},
 })
