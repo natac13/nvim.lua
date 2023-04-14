@@ -5,44 +5,26 @@ end
 
 ufo.setup()
 
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 vim.keymap.set("n", "<leader>lI", ":Mason<CR>", { desc = "Mason" })
 
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
+local lsp = require("lsp-zero").preset("recommended")
 
 lsp.ensure_installed({
 	"tsserver",
 })
 
-local cmp = require("cmp")
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-	["<C-y>"] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
-})
-
--- Disable completion with <Tab> and <S-Tab>
--- this helps with copilot setup
-cmp_mappings["<Tab>"] = nil
-cmp_mappings["<S-Tab>"] = nil
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-})
-
-lsp.set_preferences({
-	suggest_lsp_servers = false,
-	sign_icons = {
-		error = "E",
-		warn = "W",
-		hint = "H",
-		info = "I",
-	},
+lsp.set_sign_icons({
+	error = "E",
+	warn = "W",
+	hint = "H",
+	info = "I",
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -84,22 +66,13 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>lr", function()
 		vim.lsp.buf.rename()
 	end, opts)
-	vim.keymap.set("i", "<C-k>", function()
+	vim.keymap.set("i", "gs", function()
 		vim.lsp.buf.signature_help()
 	end, opts)
 	vim.keymap.set("n", "<leader>lf", function()
 		vim.lsp.buf.formatting()
 	end, opts)
 end)
-
--- lsp.format_on_save({
---   format_opts = {
---     timeout_ms = 10000,
---   },
---   servers = {
---     ['null-ls'] = {'javascript', 'typescript', 'typescriptreact'}
---   }
--- })
 
 lsp.set_server_config({
 	capabilities = {
@@ -113,27 +86,7 @@ lsp.set_server_config({
 })
 
 -- Fix Undefined global 'vim'
--- lsp.configure('lua_ls', {
---   cmd = { 'lua-language-server' },
---   settings = {
---     Lua = {
---       runtime = {
---         version = 'LuaJIT',
---         path = vim.split(package.path, ';'),
---       },
---       diagnostics = {
---         globals = { 'vim' },
---       },
---       workspace = {
---         library = {
---           [vim.fn.expand('$VIMRUNTIME/lua')] = true,
---           [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
---         },
---       },
---     },
---   },
--- })
--- require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
 
@@ -144,6 +97,29 @@ require("typescript").setup({
 			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
 			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
 		end,
+	},
+})
+
+local cmp = require("cmp")
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+cmp.setup({
+	mapping = {
+		["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+		["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		-- Disable completion with <Tab> and <S-Tab>
+		-- this helps with copilot setup
+		["<Tab>"] = cmp.config.disable,
+		["<S-Tab>"] = cmp.config.disable,
+	},
+	sources = {
+		{ name = "path" },
+		{ name = "nvim_lsp" },
+		{ name = "buffer", keyword_length = 3 },
+		{ name = "luasnip", keyword_length = 2 },
 	},
 })
 

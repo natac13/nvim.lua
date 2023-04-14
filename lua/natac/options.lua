@@ -46,8 +46,6 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- Set completeopt to have a better completion experience
 opt.completeopt = "menuone,noselect"
 
-
-
 -- backup
 opt.swapfile = false
 opt.backup = false
@@ -61,9 +59,3 @@ opt.incsearch = true
 opt.updatetime = 50
 opt.timeout = true
 opt.timeoutlen = 300
-
-opt.foldcolumn = "1"
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldenable = false
-
