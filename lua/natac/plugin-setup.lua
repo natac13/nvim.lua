@@ -30,7 +30,7 @@ return packer.startup(function(use)
   use("wbthomason/packer.nvim")
   -- My plugins here
 
-  -- Color Scheme
+ -- Color Scheme
   use("sainnhe/gruvbox-material") -- prefered colorscheme
 
   -- icons
@@ -73,6 +73,19 @@ return packer.startup(function(use)
   }
 
   use('nvim-treesitter/nvim-treesitter-context')
+
+  -- Lua
+  use {
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+	-- your configuration comes here
+	-- or leave it empty to use the default settings
+	-- refer to the configuration section below
+      }
+    end
+  }
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',

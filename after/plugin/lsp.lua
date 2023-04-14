@@ -7,6 +7,7 @@ ufo.setup()
 
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set('n', '<leader>lI', ':Mason<CR>', { desc = "Mason" })
 
 local lsp = require("lsp-zero")
 
@@ -25,6 +26,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ["<C-Space>"] = cmp.mapping.complete(),
 })
 
+  -- Disable completion with <Tab> and <S-Tab>
+  -- this helps with copilot setup
   cmp_mappings['<Tab>'] = nil
   cmp_mappings['<S-Tab>'] = nil
 
@@ -58,6 +61,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-k>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.formatting() end, opts)
 
 end)
 
@@ -78,7 +82,29 @@ lsp.set_server_config({
         lineFoldingOnly = true
       }
     },
-  }
+  },
+})
+
+-- Fix Undefined global 'vim'
+lsp.configure('lua_ls', {
+  cmd = { 'lua-language-server' },
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+    },
+  },
 })
 
 lsp.setup()
@@ -103,16 +129,31 @@ if not null_ls_status_ok then
 	return
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+local null_opts = lsp.build_options('null-ls', {
+  on_attach = function(client)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.format()')
+    end
+  end,
+})
+
 local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-local diagnostics = null_ls.builtins.diagnostics
+local lint = null_ls.builtins.diagnostics
+local action = null_ls.builtins.code_actions
 
 null_ls.setup({
-	debug = false,
-	sources = {
-		formatting.prettierd,
-		formatting.stylua,
-	},
+  debug = true,
+  on_attach = null_opts.on_attach,
+  sources = {
+    -- formatting
+    formatting.prettier,
+    formatting.stylua, -- Lua
+
+    -- linting
+    lint.eslint,
+
+    -- code actions
+    action.eslint,
+  },
 })
 
