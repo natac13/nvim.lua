@@ -3,7 +3,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local keymap = vim.keymap -- for conciseness
-
 ---------------------
 -- General Keymaps
 ---------------------
@@ -12,7 +11,8 @@ local keymap = vim.keymap -- for conciseness
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "[E]xplorer" })
 
 -- use jk to exit insert mode
-keymap.set("i", "jk", "<ESC>", { silent = true })
+keymap.set("i", "jk", "<ESC>", { silent = true, desc = "Exit insert mode" })
+keymap.set("i", "kj", "<ESC>", { silent = true, desc = "Exit insert mode" })
 
 -- clear search highlights
 keymap.set("n", "<leader><ENTER>", ":nohl<CR>", { desc = "[C]lear search highlights" })
@@ -31,9 +31,15 @@ keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
 keymap.set("n", "<leader>tn", ":tabn<CR>") --  go to next tab
 keymap.set("n", "<leader>tp", ":tabp<CR>") --  go to previous tab
 
-keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "[B]uffer [N]ext" }) -- go to next buffer
-keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "[B]uffer [P]revious" }) -- go to previous buffer
+-- Navigate buffers
+keymap.set("n", "<S-l>", ":bnext<CR>", { silent = true, noremap = true, desc = "Next buffer" })
+keymap.set("n", "<S-h>", ":bprevious<CR>", { silent = true, noremap = true, desc = "Previous buffer" })
 keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "[B]uffer [D]elete" }) -- delete current buffer
+
+keymap.set("n", "<leader>sv", ":source $MYVIMRC<CR>", { desc = "[S]ource [V]imrc", noremap = true }) -- source vimrc
+
+-- copy to system clipboard to all lines in the block
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- smart way to move between windows
 keymap.set("n", "<C-j>", "<C-W>j")
@@ -46,3 +52,6 @@ keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- remap for dealing with word wrap
 keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
 keymap.set("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
+
+keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
