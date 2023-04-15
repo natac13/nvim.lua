@@ -62,8 +62,6 @@ return packer.startup(function(use)
 
 	use("jose-elias-alvarez/typescript.nvim")
 
-	use("jose-elias-alvarez/null-ls.nvim")
-
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
@@ -102,6 +100,9 @@ return packer.startup(function(use)
 			},
 			{ "williamboman/mason-lspconfig.nvim" },
 
+			{ "jay-babu/mason-null-ls.nvim" },
+			{ "jose-elias-alvarez/null-ls.nvim" },
+
 			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
 			-- { "hrsh7th/cmp-buffer" },
@@ -117,12 +118,7 @@ return packer.startup(function(use)
 	})
 
 	-- auto closing
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({})
-		end,
-	})
+	use("windwp/nvim-autopairs")
 
 	use("github/copilot.vim")
 

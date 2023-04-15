@@ -227,3 +227,8 @@ null_ls.setup({
 		action.eslint,
 	},
 })
+
+require("mason-null-ls").setup({
+	ensure_installed = nil,
+	automatic_installation = true,
+})
