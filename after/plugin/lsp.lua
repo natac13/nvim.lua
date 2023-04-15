@@ -217,14 +217,15 @@ null_ls.setup({
 	on_attach = null_opts.on_attach,
 	sources = {
 		-- formatting
-		formatting.prettier,
+		formatting.eslint_d,
+		formatting.prettierd,
 		formatting.stylua, -- Lua
 
 		-- linting
-		lint.eslint,
+		lint.eslint_d,
 
 		-- code actions
-		action.eslint,
+		action.eslint_d,
 	},
 })
 
