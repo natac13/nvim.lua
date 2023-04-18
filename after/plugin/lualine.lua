@@ -9,7 +9,7 @@ lualine.setup({
 		-- component_separators = "|",
 		-- section_separators = "",
 	},
-	sections = {
-		lualine_a = { "buffers" },
-	},
+	-- sections = {
+	-- 	lualine_a = { "buffers" },
+	-- },
 })

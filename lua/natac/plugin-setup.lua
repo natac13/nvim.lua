@@ -31,7 +31,15 @@ return packer.startup(function(use)
 	-- My plugins here
 
 	-- Color Scheme
+	-- use("natac13/gruvbox-material", {
+	-- 	branch = "feat/color-update",
+	-- }) -- prefered colorscheme
 	use("sainnhe/gruvbox-material") -- prefered colorscheme
+	use("sainnhe/everforest", { opts = true })
+	use("eddyekofo94/gruvbox-flat.nvim", { opts = true })
+	-- use({ "ellisonleao/gruvbox.nvim" })
+	-- use({ "catppuccin/nvim", as = "catppuccin" })
+	use({ "rose-pine/neovim", as = "rose-pine" }, { opts = true })
 
 	-- icons
 	use("nvim-tree/nvim-web-devicons")
@@ -58,6 +66,11 @@ return packer.startup(function(use)
 
 	use("nvim-lualine/lualine.nvim")
 
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "v3.*",
+	})
+
 	use("folke/which-key.nvim")
 
 	use("jose-elias-alvarez/typescript.nvim")
@@ -71,6 +84,7 @@ return packer.startup(function(use)
 	})
 
 	use("nvim-treesitter/nvim-treesitter-context")
+	use("nvim-treesitter/playground")
 
 	-- Lua
 	use({
