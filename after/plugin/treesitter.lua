@@ -20,10 +20,9 @@ treesitter.setup({
 		-- Instead of true it can also be a list of languages
 		additional_vim_regex_highlighting = false,
 	},
-<<<<<<< HEAD
 	autopairs = {
 		enable = true,
-=======
+	},
 	playground = {
 		enable = true,
 		disable = {},
@@ -41,7 +40,6 @@ treesitter.setup({
 			goto_node = "<cr>",
 			show_help = "?",
 		},
->>>>>>> 2f87c3c (update colors)
 	},
 })
 
