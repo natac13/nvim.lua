@@ -93,7 +93,7 @@ lsp.on_attach(function(client, bufnr)
 		remap = opts.remap,
 		desc = "Previous diagnostic",
 	})
-	vim.keymap.set("n", "<leader>ca", function()
+	vim.keymap.set("n", "<leader>ac", function()
 		vim.lsp.buf.code_action()
 	end, {
 		buffer = opts.buffer,

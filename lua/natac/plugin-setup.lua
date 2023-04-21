@@ -37,8 +37,7 @@ return packer.startup(function(use)
 	use("sainnhe/gruvbox-material") -- prefered colorscheme
 	use("sainnhe/everforest", { opts = true })
 	use("eddyekofo94/gruvbox-flat.nvim", { opts = true })
-	-- use({ "ellisonleao/gruvbox.nvim" })
-	-- use({ "catppuccin/nvim", as = "catppuccin" })
+	use({ "catppuccin/nvim", as = "catppuccin" }, { opts = true })
 	use({ "rose-pine/neovim", as = "rose-pine" }, { opts = true })
 
 	-- icons
