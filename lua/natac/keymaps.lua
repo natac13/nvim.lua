@@ -75,3 +75,117 @@ autocmd("TextYankPost", {
 		})
 	end,
 })
+
+if vim.g.vscode == 1 then
+	keymap.set("n", "<leader>w", ":call VSCodeNotify('workbench.action.files.save')<CR>", { desc = "[W]rite" })
+	keymap.set(
+		"n",
+		"<leader>e",
+		":call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
+		{ desc = "[E]xplorer" }
+	)
+	keymap.set(
+		"n",
+		"gr",
+		"<CMD>call VSCodeNotify('editor.action.goToReferences')<CR>",
+		{ desc = "[G]o to [R]eferences" }
+	)
+	keymap.set(
+		"n",
+		"gd",
+		"<CMD>call VSCodeNotify('editor.action.revealDefinition')<CR>",
+		{ desc = "[G]o to [D]eclaration" }
+	)
+	keymap.set(
+		"n",
+		"gD",
+		"<CMD>call VSCodeNotify('editor.action.peekDeclaration')<CR>",
+		{ desc = "[G]o to [D]eclaration" }
+	)
+	keymap.set(
+		"n",
+		"gi",
+		":call VSCodeNotify('editor.action.goToImplementation')<CR>",
+		{ desc = "[G]o to [I]mplementation" }
+	)
+	keymap.set("n", "K", ":call VSCodeNotify('editor.action.showHover')<CR>", { desc = "[K]eyword hover" })
+	keymap.set(
+		"n",
+		"<leader>ls",
+		":call VSCodeNotify('workbench.action.gotoSymbol')<CR>",
+		{ desc = "[L]ist File [S]ymbols" }
+	)
+	keymap.set(
+		"n",
+		"<leader>lS",
+		":call VSCodeNotify('workbench.action.showAllSymbols')<CR>",
+		{ desc = "[L]ist All [S]ymbols" }
+	)
+	keymap.set(
+		"n",
+		"<leader>f",
+		":call VSCodeNotify('editor.action.formatDocument')<CR>",
+		{ desc = "[F]ormat Document" }
+	)
+	keymap.set(
+		"n",
+		"<leader>oi",
+		":call VSCodeNotify('editor.action.organizeImports')<CR>",
+		{ desc = "[O]rganize [I]mports" }
+	)
+	keymap.set("n", "<leader>ac", ":call VSCodeNotify('editor.action.codeAction')<CR>", { desc = "[A]ction [C]ode" })
+	keymap.set("n", "u", ":call VSCodeNotify('undo')<CR>", { desc = "[U]ndo" })
+	keymap.set("n", "<leader>x", ":call VSCodeNotifyVisual('extension.createSnippet', 1)<CR>", { desc = "[X] snippet" })
+	keymap.set(
+		"n",
+		"<leader>ps",
+		":call VSCodeNotify('workbench.action.findInFiles')<CR>",
+		{ desc = "[P]roject [S]earch" }
+	)
+	keymap.set(
+		"n",
+		"<leader>|",
+		":call VSCodeNotify('workbench.action.splitEditor')<CR>",
+		{ desc = "[S]plit [V]ertical" }
+	)
+	keymap.set(
+		"n",
+		"<leader>-",
+		":call VSCodeNotify('workbench.action.splitEditorOrthogonal')<CR>",
+		{ desc = "[S]plit [H]orizontal" }
+	)
+	keymap.set("n", "<C-r>", ":call VSCodeNotify('redo')<CR>", { desc = "[R]edo" })
+	keymap.set("n", "<leader>Z", ":call VSCodeNotify('workbench.action.toggleZenMode')<CR>", { desc = "[Z]en" })
+	keymap.set("n", "<leader>nf", ":call VSCodeNotify('fileutils.newFile')<CR>", { desc = "[N]ew [F]ile" })
+	keymap.set("n", "<leader>rf", ":call VSCodeNotify('fileutils.renameFile')<CR>", { desc = "[R]ename [F]ile" })
+	keymap.set("n", "<leader>lr", ":call VSCodeNotify('editor.action.rename')<CR>", { desc = "[L]ist [R]ename" })
+	keymap.set(
+		"n",
+		"<leader>gT",
+		":call VSCodeNotify('editor.action.peekTypeDefinition')<CR>",
+		{ desc = "[G]o to [T]ype" }
+	)
+	keymap.set("n", "[d", ":call VSCodeNotify('editor.action.marker.prev')<CR>", { desc = "[G]o to [P]revious Issue" })
+	keymap.set("n", "]d", ":call VSCodeNotify('editor.action.marker.next')<CR>", { desc = "[G]o to [N]ext Issue" })
+	keymap.set(
+		"n",
+		"gs",
+		":call VSCodeNotify('editor.action.triggerParameterHints')<CR>",
+		{ desc = "[S]how Parameter Hints" }
+	)
+	keymap.set(
+		"n",
+		"<leader>;",
+		":call VSCodeNotify('copilot-labs.use-brush-picker')<CR>",
+		{ desc = "[;] Use Brush Picker" }
+	)
+
+	keymap.set("v", "<leader>;", ":call VSCodeNotifyVisual('copilot-labs.use-brush-picker', 1)<CR>", {
+		desc = "[;] Use Brush Picker",
+	})
+	--   " VSCode extension
+	-- xmap gc  <Plug>VSCodeCommentary
+	-- nmap gc  <Plug>VSCodeCommentary
+	-- omap gc  <Plug>VSCodeCommentary
+	-- nmap gcc <Plug>VSCodeCommentaryLine
+end

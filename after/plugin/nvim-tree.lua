@@ -1,3 +1,7 @@
+if vim.g.vscode == 1 then
+	return
+end
+
 local status, nvimtree = pcall(require, "nvim-tree")
 if not status then
 	return
@@ -8,11 +12,11 @@ vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
 nvimtree.setup({
-	open_file = {
-		window_picker = {
-			enable = false,
-		},
-	},
+	-- open_file = {
+	-- 	window_picker = {
+	-- 		enable = false,
+	-- 	},
+	-- },
 	filters = {
 		dotfiles = false,
 	},

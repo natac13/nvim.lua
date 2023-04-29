@@ -1,3 +1,7 @@
+if vim.g.vscode == 1 then
+	return
+end
+
 local ufo_status, ufo = pcall(require, "ufo")
 if not ufo_status then
 	return
@@ -223,9 +227,11 @@ null_ls.setup({
 
 		-- linting
 		lint.eslint_d,
+		lint.cspell,
 
 		-- code actions
 		action.eslint_d,
+		action.cspell,
 	},
 })
 

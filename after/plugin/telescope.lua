@@ -1,3 +1,6 @@
+if vim.g.vscode == 1 then
+	return
+end
 -- import telescope plugin safely
 local telescope_setup, telescope = pcall(require, "telescope")
 if not telescope_setup then

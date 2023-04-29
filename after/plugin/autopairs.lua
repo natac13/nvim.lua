@@ -1,3 +1,7 @@
+if vim.g.vscode == 1 then
+	return
+end
+
 local status_ap, autopairs = pcall(require, "nvim-autopairs")
 if not status_ap then
 	return

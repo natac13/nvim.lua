@@ -1,3 +1,6 @@
+if vim.g.vscode == 1 then
+	return
+end
 local status, treesitter = pcall(require, "nvim-treesitter-configs")
 if not status then
 	return

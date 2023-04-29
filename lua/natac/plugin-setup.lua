@@ -20,6 +20,8 @@ vim.cmd([[
   augroup end
 ]])
 
+local vscode = vim.g.vscode == 1
+
 -- protected import of packer
 local status, packer = pcall(require, "packer")
 if not status then
@@ -34,45 +36,50 @@ return packer.startup(function(use)
 	-- use("natac13/gruvbox-material", {
 	-- 	branch = "feat/color-update",
 	-- }) -- prefered colorscheme
-	use("sainnhe/gruvbox-material") -- prefered colorscheme
-	use("sainnhe/everforest", { opts = true })
-	use("eddyekofo94/gruvbox-flat.nvim", { opts = true })
-	use({ "catppuccin/nvim", as = "catppuccin" }, { opts = true })
-	use({ "rose-pine/neovim", as = "rose-pine" }, { opts = true })
+	use("sainnhe/gruvbox-material", { disable = vscode }) -- prefered colorscheme
+	use("sainnhe/everforest", { opt = true, disable = vscode })
+	use("eddyekofo94/gruvbox-flat.nvim", { opt = true, disable = vscode })
+	use("catppuccin/nvim", { as = "catppuccin", opt = true, disable = vscode })
+	use("rose-pine/neovim", { as = "rose-pine", opt = true, disable = vscode })
 
 	-- icons
-	use("nvim-tree/nvim-web-devicons")
+	use("nvim-tree/nvim-web-devicons", { disable = vscode })
 
 	-- Fuzzy Finder (files, lsp, etc)
-	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" } })
+	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" }, disable = vscode })
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
-	use({ "nvim-telescope/telescope-ui-select.nvim" }) -- for showing lsp code actions
+	use({
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "make",
+		cond = vim.fn.executable("make") == 1,
+		disable = vscode,
+	})
+	use({ "nvim-telescope/telescope-ui-select.nvim", disable = vscode }) -- for showing lsp code actions
 
-	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", disable = vscode })
 
 	use("tpope/vim-surround")
 
-	use("tpope/vim-sleuth")
+	use("tpope/vim-sleuth", { disable = vscode })
 
-	use("lewis6991/gitsigns.nvim")
+	use("lewis6991/gitsigns.nvim", { disable = vscode })
 
-	use("numToStr/Comment.nvim")
+	use("numToStr/Comment.nvim", { disable = vscode })
 
-	use("nvim-tree/nvim-tree.lua")
+	use("nvim-tree/nvim-tree.lua", { disable = vscode })
 
-	use("tpope/vim-fugitive")
+	use("tpope/vim-fugitive", { disable = vscode })
 
-	use("nvim-lualine/lualine.nvim")
+	use("nvim-lualine/lualine.nvim", { disable = vscode })
 
 	use({
 		"akinsho/bufferline.nvim",
 		tag = "v3.*",
-	})
+	}, { disable = vscode })
 
 	use("folke/which-key.nvim")
 
-	use("jose-elias-alvarez/typescript.nvim")
+	use("jose-elias-alvarez/typescript.nvim", { disable = vscode })
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -80,10 +87,10 @@ return packer.startup(function(use)
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
-	})
+	}, { disable = vscode })
 
-	use("nvim-treesitter/nvim-treesitter-context")
-	use("nvim-treesitter/playground")
+	use("nvim-treesitter/nvim-treesitter-context", { disable = vscode })
+	use("nvim-treesitter/playground", { disable = vscode })
 
 	-- Lua
 	use({
@@ -96,44 +103,46 @@ return packer.startup(function(use)
 				-- refer to the configuration section below
 			})
 		end,
+		disable = vscode,
 	})
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
+		disable = vscode,
 		requires = {
 			-- LSP Support
-			{ "neovim/nvim-lspconfig" },
+			{ "neovim/nvim-lspconfig", { disable = vscode } },
 			{
 				-- Optional
 				"williamboman/mason.nvim",
 				run = function()
 					pcall(vim.cmd, "MasonUpdate")
 				end,
+				disable = vscode,
 			},
-			{ "williamboman/mason-lspconfig.nvim" },
-
-			{ "jay-babu/mason-null-ls.nvim" },
-			{ "jose-elias-alvarez/null-ls.nvim" },
+			{ "williamboman/mason-lspconfig.nvim", { disable = vscode } },
+			{ "jay-babu/mason-null-ls.nvim", { disable = vscode } },
+			{ "jose-elias-alvarez/null-ls.nvim", { disable = vscode } },
 
 			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/nvim-cmp", { disable = vscode } },
 			-- { "hrsh7th/cmp-buffer" },
 			-- { "hrsh7th/cmp-path" },
 			-- { "saadparwaiz1/cmp_luasnip" },
-			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lsp", { disable = vscode } },
 			-- { "hrsh7th/cmp-nvim-lua" },
 
 			-- Snippets
-			{ "L3MON4D3/LuaSnip" },
+			{ "L3MON4D3/LuaSnip", { disable = vscode } },
 			-- { "rafamadriz/friendly-snippets" },
 		},
 	})
 
 	-- auto closing
-	use("windwp/nvim-autopairs")
+	use("windwp/nvim-autopairs", { disable = vscode })
 
-	use("github/copilot.vim")
+	use("github/copilot.vim", { disable = vscode })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

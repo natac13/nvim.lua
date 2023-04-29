@@ -1,3 +1,7 @@
+if vim.g.vscode == 1 then
+	return
+end
+
 local status, lualine = pcall(require, "lualine")
 if not status then
 	return

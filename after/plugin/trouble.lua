@@ -1,3 +1,6 @@
+if vim.g.vscode == 1 then
+	return
+end
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true, desc = "Toggle Trouble" })
 vim.keymap.set(
 	"n",
