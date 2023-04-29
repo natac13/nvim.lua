@@ -5,7 +5,7 @@ end
 
 treesitter.setup({
 	-- A list of parser names, or "all"
-	ensure_installed = { "help", "javascript", "tsx", "typescript", "c_sharp", "c", "lua", "rust" },
+	ensure_installed = { "help", "javascript", "tsx", "typescript", "c_sharp", "c", "lua", "rust", "go" },
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
 	-- Automatically install missing parsers when entering buffer

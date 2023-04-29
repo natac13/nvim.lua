@@ -18,6 +18,8 @@ local lsp = require("lsp-zero").preset("recommended")
 
 lsp.ensure_installed({
 	"tsserver",
+	"rust_analyzer",
+	"gopls",
 })
 
 lsp.set_sign_icons({
