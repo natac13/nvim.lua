@@ -53,6 +53,8 @@ return packer.startup(function(use)
 
 	use("tpope/vim-surround")
 
+	use("justinmk/vim-sneak")
+
 	use("tpope/vim-sleuth")
 
 	use("lewis6991/gitsigns.nvim")
@@ -83,7 +85,7 @@ return packer.startup(function(use)
 	})
 
 	use("nvim-treesitter/nvim-treesitter-context")
-	use("nvim-treesitter/playground")
+	-- use("nvim-treesitter/playground")
 
 	-- Lua
 	use({

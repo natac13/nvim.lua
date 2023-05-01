@@ -1,18 +1,21 @@
 -- import telescope plugin safely
 local telescope_setup, telescope = pcall(require, "telescope")
 if not telescope_setup then
+	print("Telescope not found")
 	return
 end
 
 -- import telescope actions safely
 local actions_setup, actions = pcall(require, "telescope.actions")
 if not actions_setup then
+	print("Telescope actions not found")
 	return
 end
 
 -- import telescope-ui-select safely
 local themes_setup, themes = pcall(require, "telescope.themes")
 if not themes_setup then
+	print("Telescope themes not found")
 	return
 end
 

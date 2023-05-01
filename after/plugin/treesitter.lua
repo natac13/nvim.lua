@@ -1,11 +1,12 @@
-local status, treesitter = pcall(require, "nvim-treesitter-configs")
+local status, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status then
+	print("Treesitter not found")
 	return
 end
 
 treesitter.setup({
 	-- A list of parser names, or "all"
-	ensure_installed = { "help", "javascript", "tsx", "typescript", "c_sharp", "c", "lua", "rust", "go" },
+	ensure_installed = { "query", "javascript", "tsx", "typescript", "c_sharp", "c", "lua", "rust", "go", "vim" },
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
 	-- Automatically install missing parsers when entering buffer
