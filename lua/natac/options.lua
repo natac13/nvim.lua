@@ -56,6 +56,11 @@ vim.opt.undofile = true
 opt.hlsearch = true
 opt.incsearch = true
 
+opt.list = true
+opt.listchars = {
+	space = "⋅",
+}
+
 opt.updatetime = 50
 opt.timeout = true
 opt.timeoutlen = 300
