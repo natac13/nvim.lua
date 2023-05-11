@@ -59,6 +59,12 @@ opt.incsearch = true
 opt.list = true
 opt.listchars = {
 	space = "⋅",
+	tab = "» ",
+	-- nbsp = "⋅",
+	-- trail = "•",
+	-- extends = "❯",
+	-- precedes = "❮",
+	-- eol = "↲",
 }
 
 opt.updatetime = 50
