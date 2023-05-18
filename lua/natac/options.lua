@@ -56,16 +56,24 @@ vim.opt.undofile = true
 opt.hlsearch = true
 opt.incsearch = true
 
-opt.list = true
-opt.listchars = {
-	space = "⋅",
-	tab = "» ",
-	-- nbsp = "⋅",
-	-- trail = "•",
-	-- extends = "❯",
-	-- precedes = "❮",
-	-- eol = "↲",
-}
+-- opt.list = true
+-- opt.listchars = {
+-- space = "⋅",
+-- tab = "» ",
+-- nbsp = "⋅",
+-- trail = "•",
+-- extends = "❯",
+-- precedes = "❮",
+-- eol = "↲",
+-- }
+-- -- show leading spaces and tabs
+-- vim.cmd("hi Conceal guibg=NONE ctermbg=NONE ctermfg=DarkGrey")
+-- vim.cmd("autocmd BufWinEnter * setl conceallevel=2 concealcursor=nv")
+-- vim.cmd("autocmd BufWinEnter * syn match LeadingSpace '\\(^ *\\)\\@<= ' containedin=ALL conceal cchar=·")
+-- vim.cmd("autocmd BufWinEnter * syn match LeadingTab '\\(^\t*\\)\\@<=\t' containedin=ALL conceal cchar=→ ")
+-- vim.cmd("autocmd BufReadPre * setl conceallevel=2 concealcursor=nv")
+-- vim.cmd("autocmd BufReadPre * syn match LeadingSpace '\\(^ *\\)\\@<= ' containedin=ALL conceal cchar=·")
+-- vim.cmd("autocmd BufReadPre * syn match LeadingTab '\\(^\t*\\)\\@<=\t' containedin=ALL conceal cchar=→ ")
 
 opt.updatetime = 50
 opt.timeout = true

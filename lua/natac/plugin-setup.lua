@@ -67,6 +67,8 @@ return packer.startup(function(use)
 
 	use("nvim-lualine/lualine.nvim")
 
+	use("lukas-reineke/indent-blankline.nvim")
+
 	use({
 		"akinsho/bufferline.nvim",
 		tag = "v3.*",
