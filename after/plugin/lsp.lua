@@ -23,13 +23,17 @@ lsp.ensure_installed({
 })
 
 lsp.set_sign_icons({
-	error = "E",
-	warn = "W",
-	hint = "H",
-	info = "I",
+	error = "",
+	warn = "",
+	hint = "",
+	info = "",
+	-- error = "E",
+	-- warn = "W",
+	-- hint = "H",
+	-- info = "I",
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
 	vim.keymap.set("n", "gd", function()
@@ -132,23 +136,31 @@ lsp.on_attach(function(client, bufnr)
 	})
 end)
 
-lsp.set_server_config({
-	capabilities = {
-		textDocument = {
-			foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			},
-		},
-	},
-})
-
+-- lsp.set_server_config({
+-- 	capabilities = {
+-- 		textDocument = {
+-- 			foldingRange = {
+-- 				dynamicRegistration = false,
+-- 				lineFoldingOnly = true,
+-- 			},
+-- 		},
+-- 	},
+-- })
+--
 -- Fix Undefined global 'vim'
 require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 
+lsp.skip_server_setup({ "tsserver" })
+
 lsp.setup()
 
-require("typescript").setup({
+local tsStatus, typescript = pcall(require, "typescript")
+if not tsStatus then
+	print("typescript not installed")
+	return
+end
+
+typescript.setup({
 	server = {
 		on_attach = function(client, bufnr)
 			vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>", {
@@ -219,15 +231,15 @@ null_ls.setup({
 	on_attach = null_opts.on_attach,
 	sources = {
 		-- formatting
-		formatting.eslint_d,
-		formatting.prettierd,
+		formatting.eslint,
+		formatting.prettier,
 		formatting.stylua, -- Lua
 
 		-- linting
-		lint.eslint_d,
+		lint.eslint,
 
 		-- code actions
-		action.eslint_d,
+		action.eslint,
 	},
 })
 
