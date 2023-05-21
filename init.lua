@@ -1,4 +1,4 @@
-require('natac.plugin-setup')
-require('natac.keymaps')
-require('natac.options')
-require('natac.colorscheme')
+require("options")
+require("keymaps")
+require("Lazy")
+require("autocommands")
