@@ -24,7 +24,6 @@ local M = {
 				formatting.goimports_reviser, -- go
 				formatting.gofmt, -- go
 				formatting.rustfmt, -- rust
-				formatting.rustywind, -- tailwindcss
 
 				-- linting
 				lint.eslint_d,
