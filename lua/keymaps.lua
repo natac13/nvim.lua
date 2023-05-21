@@ -1,14 +1,16 @@
+local keymap = vim.keymap -- for conciseness
+
 -- set leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-local keymap = vim.keymap -- for conciseness
 ---------------------
 -- General Keymaps
 ---------------------
 -- open explorer
 -- vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "[E]xplorer" })
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "[E]xplorer" })
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", { silent = true, desc = "Exit insert mode" })
@@ -47,7 +49,6 @@ keymap.set("n", "<C-k>", "<C-W>k")
 keymap.set("n", "<C-l>", "<C-W>l")
 keymap.set("n", "<C-h>", "<C-W>h")
 
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- remap for dealing with word wrap
 keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
@@ -60,18 +61,3 @@ keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 -- ability to yank to system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup("HighlightYank", {})
-
-autocmd("TextYankPost", {
-	group = yank_group,
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({
-			higroup = "IncSearch",
-			timeout = 100,
-		})
-	end,
-})
