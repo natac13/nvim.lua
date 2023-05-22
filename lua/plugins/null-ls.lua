@@ -17,21 +17,21 @@ local M = {
 			debug = true,
 			sources = {
 				-- formatting
-				formatting.eslint_d, -- javascript, typescript, css, html, json, yaml, markdown
+				formatting.eslint, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.prettier, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.stylua, -- lua
-				formatting.goimports, -- go
-				formatting.goimports_reviser, -- go
-				formatting.gofmt, -- go
-				formatting.rustfmt, -- rust
+				-- formatting.goimports, -- go
+				-- formatting.goimports_reviser, -- go
+				-- formatting.gofmt, -- go
+				-- formatting.rustfmt, -- rust
 
 				-- linting
-				lint.eslint_d,
-				lint.golangci_lint,
+				lint.eslint,
+				-- lint.golangci_lint,
 				lint.hadolint, -- dockerfile
 
 				-- code actions
-				action.eslint_d,
+				action.eslint,
 				action.refactoring,
 			},
 		})

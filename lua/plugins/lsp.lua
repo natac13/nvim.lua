@@ -72,7 +72,9 @@ return {
 			{
 				"williamboman/mason.nvim",
 				build = function()
-					pcall(vim.cmd, "MasonUpdate")
+					pcall(function()
+						vim.cmd("MasonUpdate")
+					end)
 				end,
 			},
 		},
@@ -93,7 +95,7 @@ return {
 				info = "",
 			})
 
-			lsp.on_attach(function(client, bufnr)
+			lsp.on_attach(function(_, bufnr)
 				-- lsp.default_keymaps({buffer = bufnr})
 
 				vim.keymap.set("n", "gd", function()
