@@ -10,7 +10,6 @@ keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 ---------------------
 -- open explorer
 -- vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "[E]xplorer" })
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", { silent = true, desc = "Exit insert mode" })
@@ -48,7 +47,6 @@ keymap.set("n", "<C-j>", "<C-W>j")
 keymap.set("n", "<C-k>", "<C-W>k")
 keymap.set("n", "<C-l>", "<C-W>l")
 keymap.set("n", "<C-h>", "<C-W>h")
-
 
 -- remap for dealing with word wrap
 keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })

@@ -20,14 +20,14 @@ local M = {
 				formatting.eslint, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.prettier, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.stylua, -- lua
-				-- formatting.goimports, -- go
-				-- formatting.goimports_reviser, -- go
-				-- formatting.gofmt, -- go
+				formatting.goimports, -- go
+				formatting.goimports_reviser, -- go
+				formatting.gofmt, -- go
 				-- formatting.rustfmt, -- rust
 
 				-- linting
 				lint.eslint,
-				-- lint.golangci_lint,
+				lint.golangci_lint,
 				lint.hadolint, -- dockerfile
 
 				-- code actions

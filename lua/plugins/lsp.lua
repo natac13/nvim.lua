@@ -95,8 +95,16 @@ return {
 				info = "",
 			})
 
-			lsp.on_attach(function(_, bufnr)
+			lsp.on_attach(function(client, bufnr)
 				-- lsp.default_keymaps({buffer = bufnr})
+				if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
+					local semantic = client.config.capabilities.textDocument.semanticTokens
+					client.server_capabilities.semanticTokensProvider = {
+						full = true,
+						legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
+						range = true,
+					}
+				end
 
 				vim.keymap.set("n", "gd", function()
 					vim.lsp.buf.definition()
@@ -157,7 +165,22 @@ return {
 
 			-- (Optional) Configure lua language server for neovim
 			require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-
+			require("lspconfig").gopls.setup({
+				settings = {
+					gopls = {
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+						semanticTokens = true,
+					},
+				},
+			})
 			-- format on save
 			lsp.format_on_save({
 				format_opts = {
@@ -165,7 +188,7 @@ return {
 					timeout_ms = 10000,
 				},
 				servers = {
-					["null-ls"] = { "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
+					["null-ls"] = { "go", "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
 				},
 			})
 

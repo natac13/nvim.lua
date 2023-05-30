@@ -1,7 +1,8 @@
 local M = {
 	"sainnhe/gruvbox-material",
-	lazy = false, -- make sure we load this during startup if it is your main colorscheme
-	priority = 1000, -- make sure to load this before all the other start plugins
+	-- lazy = false, -- make sure we load this during startup if it is your main colorscheme
+	-- priority = 1000, -- make sure to load this before all the other start plugins
+	event = "VeryLazy",
 }
 
 M.name = "gruvbox-material"
@@ -12,10 +13,10 @@ function M.config()
 	vim.g.gruvbox_material_enable_italic = 0
 	vim.g.gruvbox_material_ui_contrast = "high"
 
-	local status_ok, _ = pcall(vim.cmd.colorscheme, M.name)
-	if not status_ok then
-		return
-	end
+	-- local status_ok, _ = pcall(vim.cmd.colorscheme, M.name)
+	-- if not status_ok then
+	-- 	return
+	-- end
 end
 
 local RosePine = {
@@ -26,7 +27,14 @@ local RosePine = {
 local Catppuccin = {
 	"catppuccin/nvim",
 	name = "catppuccin",
-	event = "VeryLazy",
+	lazy = false, -- make sure we load this during startup if it is your main colorscheme
+	priority = 1000, -- make sure to load this before all the other start plugins
+	config = function()
+		local status_ok, _ = pcall(vim.cmd.colorscheme, "catppuccin")
+		if not status_ok then
+			return
+		end
+	end,
 }
 
 return {
