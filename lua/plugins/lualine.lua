@@ -1,6 +1,7 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
-	event = { "VimEnter", "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+	lazy = false,
+	-- event = { "VimEnter", "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
 }
 
 function M.config()
@@ -12,8 +13,8 @@ function M.config()
 
 	lualine.setup({
 		options = {
-			-- theme = "gruvbox-material"
-			theme = "catppuccin",
+			theme = "gruvbox-material",
+			-- theme = "catppuccin",
 		},
 	})
 end
