@@ -27,7 +27,7 @@ local M = {
 
 				-- linting
 				lint.eslint,
-				lint.golangci_lint,
+				lint.staticcheck, -- go
 				lint.hadolint, -- dockerfile
 
 				-- code actions
