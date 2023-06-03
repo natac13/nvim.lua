@@ -56,12 +56,12 @@ function M.config()
 
 	vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
 	vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp Tags" })
-	-- vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "[P]roject [S]earch" })
-	vim.keymap.set("n", "<leader>ps", function()
-		builtin.grep_string({ search = vim.fn.input("Grep > ") })
-	end, {
-		desc = "[P]roject [S]earch",
-	})
+	vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "[P]roject [S]earch" })
+	-- vim.keymap.set("n", "<leader>ps", function()
+	-- 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	-- end, {
+	-- 	desc = "[P]roject [S]earch",
+	-- })
 end
 
 return {
