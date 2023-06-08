@@ -182,15 +182,15 @@ return {
 				},
 			})
 			-- format on save
-			lsp.format_on_save({
-				format_opts = {
-					async = false,
-					timeout_ms = 10000,
-				},
-				servers = {
-					["null-ls"] = { "go", "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
-				},
-			})
+			-- lsp.format_on_save({
+			-- 	format_opts = {
+			-- 		async = false,
+			-- 		timeout_ms = 10000,
+			-- 	},
+			-- 	servers = {
+			-- 		["null-ls"] = { "go", "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
+			-- 	},
+			-- })
 
 			lsp.skip_server_setup({ "tsserver" })
 
