@@ -18,21 +18,21 @@ local M = {
 			debug = true,
 			sources = {
 				-- formatting
-				formatting.eslint, -- javascript, typescript, css, html, json, yaml, markdown
+				-- formatting.eslint,        -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.prettier, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.stylua, -- lua
 				formatting.goimports, -- go
 				formatting.goimports_reviser, -- go
-				formatting.gofmt, -- go
+				-- formatting.gofmt,         -- go
 				-- formatting.rustfmt, -- rust
 
 				-- linting
-				lint.eslint,
+				-- lint.eslint,
 				lint.staticcheck, -- go
 				lint.hadolint, -- dockerfile
 
 				-- code actions
-				action.eslint,
+				-- action.eslint,
 				action.refactoring,
 			},
 			-- you can reuse a shared lspconfig on_attach callback here
@@ -43,8 +43,6 @@ local M = {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-							-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
 							vim.lsp.buf.format({ bufnr = bufnr })
 						end,
 					})

@@ -17,10 +17,10 @@ vim.g.maplocalleader = " "
 
 -- load lazy
 require("lazy").setup("plugins", {
-	install = { colorscheme = { require("plugins.colorscheme").name } },
+	install = { colorscheme = { require("plugins.colorscheme").name, missing = true } },
 	--defaults = { lazy = true, version = "57cce98dfdb2f2dd05a0567d89811e6d0505e13b" },
 	ui = { wrap = "true" },
-	change_detection = { enabled = true },
+	change_detection = { enabled = true, notify = false },
 	debug = false,
 	performance = {
 		rtp = {

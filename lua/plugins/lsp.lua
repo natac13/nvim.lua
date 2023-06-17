@@ -2,7 +2,7 @@ return {
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
-		lazy = true,
+		lazy = false,
 		config = function()
 			-- This is where you modify the settings for lsp-zero
 			-- Note: autocompletion settings will not take effect
@@ -11,6 +11,7 @@ return {
 
 			vim.diagnostic.config({
 				virtual_text = true,
+				underline = true,
 			})
 		end,
 	},
@@ -86,6 +87,9 @@ return {
 				"tsserver",
 				"rust_analyzer",
 				"gopls",
+				"eslint",
+				"lua_ls",
+				"jsonls",
 			})
 
 			lsp.set_sign_icons({
@@ -97,13 +101,22 @@ return {
 
 			lsp.on_attach(function(client, bufnr)
 				-- lsp.default_keymaps({buffer = bufnr})
-				if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
-					local semantic = client.config.capabilities.textDocument.semanticTokens
-					client.server_capabilities.semanticTokensProvider = {
-						full = true,
-						legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
-						range = true,
-					}
+				-- if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
+				-- 	local semantic = client.config.capabilities.textDocument.semanticTokens
+				-- 	client.server_capabilities.semanticTokensProvider = {
+				-- 		full = true,
+				-- 		legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
+				-- 		range = true,
+				-- 	}
+				-- end
+
+				-- remove virtual text for eslint
+				if client.name == "eslint" then
+					local ns = vim.lsp.diagnostic.get_namespace(client.id)
+
+					vim.diagnostic.config({
+						virtual_text = false,
+					}, ns)
 				end
 
 				vim.keymap.set("n", "gd", function()
@@ -163,9 +176,10 @@ return {
 				end, { buffer = bufnr, remap = false, desc = "Format Current File" })
 			end)
 
+			local lspconfig = require("lspconfig")
 			-- (Optional) Configure lua language server for neovim
-			require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-			require("lspconfig").gopls.setup({
+			lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+			lspconfig.gopls.setup({
 				settings = {
 					gopls = {
 						hints = {
@@ -182,17 +196,39 @@ return {
 				},
 			})
 			-- format on save
-			-- lsp.format_on_save({
-			-- 	format_opts = {
-			-- 		async = false,
-			-- 		timeout_ms = 10000,
-			-- 	},
-			-- 	servers = {
-			-- 		["null-ls"] = { "go", "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
-			-- 	},
-			-- })
+			lsp.format_on_save({
+				format_opts = {
+					async = false,
+					timeout_ms = 10000,
+				},
+				servers = {
+					["lua_ls"] = { "lua" },
+					["gopls"] = { "go" },
+					["rust_analyzer"] = { "rust" },
+					-- ['tsserver'] = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+					["null-ls"] = { "go", "javascript", "typescript", "lua", "typescriptreact", "javascriptreact" },
+				},
+			})
 
-			lsp.skip_server_setup({ "tsserver" })
+			lspconfig.eslint.setup({
+				settings = {
+					workingDirectory = { mode = "auto" },
+					format = { enable = false },
+					lint = { enable = true },
+				},
+				on_attach = function(_, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end,
+				on_init = function(client)
+					client.server_capabilities.documentFormattingProvider = false
+					client.server_capabilities.documentFormattingRangeProvider = false
+				end,
+			})
+
+			-- lsp.skip_server_setup({ "tsserver" })
 
 			lsp.setup()
 		end,
