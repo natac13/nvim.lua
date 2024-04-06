@@ -36,6 +36,9 @@ return {
 		window = {
 			mappings = {
 				["<space>"] = "none",
+				["l"] = "open",
+				["L"] = "open_vsplit",
+				["h"] = "close_node",
 			},
 		},
 		default_component_configs = {
