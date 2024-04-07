@@ -17,22 +17,31 @@ vim.g.maplocalleader = " "
 
 -- load lazy
 require("lazy").setup("plugins", {
-	install = { colorscheme = { require("plugins.colorscheme").name, missing = true } },
+	install = { colorscheme = { "catppuccin-mocha", missing = true } },
 	--defaults = { lazy = true, version = "57cce98dfdb2f2dd05a0567d89811e6d0505e13b" },
-	ui = { wrap = "true" },
-	change_detection = { enabled = true, notify = false },
+	ui = {
+		border = "rounded",
+	},
+	change_detection = {
+		enabled = true,
+		notify = false,
+	},
 	debug = false,
+	checker = {
+		enabled = true,
+		notify = false,
+	},
 	performance = {
 		rtp = {
 			disabled_plugins = {
-				-- "gzip", -- Plugin for editing compressed files.
+				"gzip", -- Plugin for editing compressed files.
 				-- "matchit", -- What is it?
 				--  "matchparen", -- Plugin for showing matching parens
-				--  "netrwPlugin", -- Handles file transfers and remote directory listing across a network
-				--  "tarPlugin", -- Plugin for browsing tar files
-				--  "tohtml", -- Converting a syntax highlighted file to HTML
-				--  "tutor", -- Teaching?
-				--  "zipPlugin", -- Handles browsing zipfiles
+				-- "netrwPlugin", -- Handles file transfers and remote directory listing across a network
+				"tarPlugin", -- Plugin for browsing tar files
+				"tohtml", -- Converting a syntax highlighted file to HTML
+				"tutor", -- Teaching?
+				"zipPlugin", -- Handles browsing zipfiles
 			},
 		},
 	},

@@ -1,49 +1,48 @@
-local M = {
-	"nvim-treesitter/nvim-treesitter",
-	event = "BufReadPost",
-	dependencies = {
-		{
-			"JoosepAlviste/nvim-ts-context-commentstring",
-			event = "VeryLazy",
-		},
-		{
-			"nvim-tree/nvim-web-devicons",
-			event = "VeryLazy",
-		},
-		{
-			"nvim-treesitter/nvim-treesitter-context",
-		},
-		{
-			"nvim-treesitter/playground",
-		},
-	},
-	build = function()
-		require("nvim-treesitter.install").update({ with_sync = true })
-	end,
+return { -- Highlight, edit, and navigate code
+  'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
+  config = function()
+    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+    require('nvim-treesitter.configs').setup({
+      ensure_installed = {
+        'bash',
+        'c',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'vim',
+        'vimdoc',
+        'javascript',
+        'typescript',
+        'tsx',
+        'go',
+        'query',
+        'json',
+        'python',
+
+      },
+      -- Autoinstall languages that are not installed
+      auto_install = true,
+      highlight = {
+        enable = true,
+        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+        --  If you are experiencing weird indenting issues, add the language to
+        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+        additional_vim_regex_highlighting = { 'ruby' },
+      },
+      indent = { enable = true, disable = { 'ruby' } },
+    })
+
+    -- There are additional nvim-treesitter modules that you can use to interact
+    -- with nvim-treesitter. You should go explore a few and see what interests you:
+    --
+    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  end,
 }
-function M.config()
-	-- local treesitter = require "nvim-treesitter"
-	local configs = require("nvim-treesitter.configs")
-
-	configs.setup({
-		ensure_installed = { "query", "javascript", "typescript", "tsx", "c_sharp", "go", "rust", "vim", "lua", "c" }, -- put the language you want in this array
-		-- ensure_installed = "all", -- one of "all" or a list of languages
-		ignore_install = { "" }, -- List of parsers to ignore installing
-		sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-		auto_install = true,
-		highlight = {
-			enable = true, -- false will disable the whole extension
-			disable = {}, -- list of language that will be disabled
-		},
-		autopairs = {
-			enable = true,
-		},
-		-- indent = { enable = true, disable = { "python", "css" } },
-		context_commentstring = {
-			enable = true,
-			enable_autocmd = false,
-		},
-	})
-end
-
-return M
