@@ -39,7 +39,7 @@ return { -- Highlight, edit, and navigate code
 		})
 
 		require("treesitter-context").setup({
-			enable = true,
+			enable = false,
 		})
 
 		-- There are additional nvim-treesitter modules that you can use to interact
