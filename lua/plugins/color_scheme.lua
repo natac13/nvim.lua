@@ -6,6 +6,10 @@ return {
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
+				no_bold = true,
+				no_italic = true,
+				term_colors = true,
+				flavour = "mocha",
 				integrations = {
 					cmp = true,
 					fidget = true,
@@ -45,11 +49,11 @@ return {
 			vim.g.gruvbox_material_better_performance = 1
 			vim.g.gruvbox_material_enable_italic = 0
 			vim.g.gruvbox_material_ui_contrast = "high"
-		end
+		end,
 	},
 	{
 		"rose-pine/neovim",
 		event = "VeryLazy",
 		name = "rose-pine",
-	}
+	},
 }
