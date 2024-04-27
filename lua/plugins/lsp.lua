@@ -160,6 +160,7 @@ return { -- LSP Configuration & Plugins
 							unusedparams = true,
 						},
 						staticcheck = true,
+						semanticTokens = true,
 					},
 				},
 			},
