@@ -103,6 +103,8 @@ return { -- LSP Configuration & Plugins
 				--  See `:help K` for why this keymap.
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 
+				map("<C-k>", vim.lsp.buf.signature_help, "Signature [H]elp")
+
 				-- WARN: This is not Goto Definition, this is Goto Declaration.
 				--  For example, in C this would take you to the header.
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -141,6 +143,13 @@ return { -- LSP Configuration & Plugins
 		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+		vim.keymap.set("n", "<leader>oi", function()
+			vim.lsp.buf.execute_command({
+				command = "_typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+			})
+		end, { desc = "[S]earch [H]elp" })
 
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
