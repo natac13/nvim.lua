@@ -36,18 +36,14 @@ return { -- Autocompletion
 		-- auto pairs
 		"windwp/nvim-ts-autotag",
 		"windwp/nvim-autopairs",
-		-- icons in completion menu
-		"onsails/lspkind.nvim",
 	},
 	config = function()
+		vim.opt.completeopt = { "menu", "menuone", "noselect" }
 		-- See `:help cmp`
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup()
-
-		local lspkind = require("lspkind")
-		lspkind.init()
 
 		require("nvim-autopairs").setup()
 
