@@ -35,6 +35,7 @@ return { -- Autoformat
 			javascript = { { "prettierd", "prettier" } },
 			typescript = { { "prettierd", "prettier" } },
 			typescriptreact = { { "prettierd", "prettier" } },
+			json = { { "prettierd", "prettier" } },
 		},
 	},
 }
