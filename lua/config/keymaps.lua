@@ -9,11 +9,6 @@ keymap.set("i", "jk", "<ESC>", {
 	noremap = true,
 	desc = "Exit insert mode",
 })
-keymap.set("i", "kj", "<ESC>", {
-	silent = true,
-	noremap = true,
-	desc = "Exit insert mode",
-})
 
 -- Move selected line / block of text in visual mode
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", {
@@ -38,10 +33,6 @@ keymap.set("n", "<Leader>q", ":q!<CR>", {
 	silent = true,
 	desc = "Quit file",
 })
-
--- Remap for dealing with visual line wraps
-keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- better indenting
 keymap.set("v", "<", "<gv")
@@ -121,8 +112,6 @@ keymap.set("n", "<C-p>", "<cmd>cprev<CR>zz")
 -- keymap.set("n", "<leader>tx", ":tabclose<CR>")                                     -- close current tab
 -- keymap.set("n", "<leader>tn", ":tabn<CR>")                                         --  go to next tab
 -- keymap.set("n", "<leader>tp", ":tabp<CR>")                                         --  go to previous tab
-
--- keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "[B]uffer [D]elete" })                        -- delete current buffer
 
 -- keymap.set("n", "<leader>sv", ":source $MYVIMRC<CR>", { desc = "[S]ource [V]imrc", noremap = true }) -- source vimrc
 

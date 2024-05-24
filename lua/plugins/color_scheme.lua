@@ -28,6 +28,15 @@ return {
 					telescope = true,
 					treesitter = true,
 					treesitter_context = true,
+					which_key = true,
+				},
+				color_overrides = {
+					mocha = {
+						pink = "#f4b8e4",
+						base = "#1d2021",
+						mantle = "#191b1c",
+						crust = "#141617",
+					},
 				},
 			})
 

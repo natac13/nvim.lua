@@ -101,9 +101,19 @@ return { -- LSP Configuration & Plugins
 
 				-- Opens a popup that displays documentation about the word under your cursor
 				--  See `:help K` for why this keymap.
-				map("K", vim.lsp.buf.hover, "Hover Documentation")
+				-- map("K", vim.lsp.buf.hover, "Hover Documentation")
+				map("K", function()
+					local current_buf = vim.api.nvim_get_current_buf()
+					local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+					local diagnostics = vim.diagnostic.get(current_buf, { lnum = line_nr })
+					if #diagnostics > 0 then
+						vim.diagnostic.open_float(diagnostics, { focus = false })
+					else
+						vim.lsp.buf.hover()
+					end
+				end, "Hover Documentation")
 
-				map("<C-k>", vim.lsp.buf.signature_help, "Signature [H]elp")
+				map("gs", vim.lsp.buf.signature_help, "Signature [H]elp")
 
 				-- WARN: This is not Goto Definition, this is Goto Declaration.
 				--  For example, in C this would take you to the header.
@@ -209,7 +219,12 @@ return { -- LSP Configuration & Plugins
 		--    :Mason
 		--
 		--  You can press `g?` for help in this menu.
-		require("mason").setup()
+		require("mason").setup({
+			ui = {
+				border = "rounded",
+			},
+		})
+		require("lspconfig.ui.windows").default_options.border = "single"
 
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
@@ -241,6 +256,8 @@ return { -- LSP Configuration & Plugins
 		vim.diagnostic.config({
 			virtual_text = true,
 			underline = true,
+			signs = true,
+			severity_sort = true,
 			float = {
 				source = "always",
 				style = "minimal",
