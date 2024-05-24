@@ -96,6 +96,12 @@ keymap.set("n", "<leader>sx", ":close<CR>", {
 	silent = true,
 })
 
+-- Panes resizing
+keymap.set("n", "+", ":resize +5<CR>")
+keymap.set("n", "_", ":resize -5<CR>")
+keymap.set("n", "=", ":vertical resize +5<CR>")
+keymap.set("n", "-", ":vertical resize -5<CR>")
+
 -- disable default <Space> keymap
 keymap.set({ "n", "v" }, "<Space>", "<Nop>", {
 	noremap = true,
