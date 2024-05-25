@@ -28,11 +28,11 @@ keymap.set("n", "<Leader>w", ":write!<CR>", {
 	silent = true,
 	desc = "Save file",
 })
-keymap.set("n", "<Leader>q", ":q!<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Quit file",
-})
+-- keymap.set("n", "<Leader>q", ":q!<CR>", {
+-- 	noremap = true,
+-- 	silent = true,
+-- 	desc = "Quit file",
+-- })
 
 -- better indenting
 keymap.set("v", "<", "<gv")
