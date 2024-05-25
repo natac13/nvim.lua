@@ -5,6 +5,7 @@ return {
 	{
 		"tpope/vim-sleuth",
 	},
+	-- Neovim notification and LSP progress messages
 	{
 		"tpope/vim-fugitive",
 	},
@@ -43,5 +44,22 @@ return {
 				default = true,
 			})
 		end,
+	},
+	-- Indent guide for Neovim
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+	},
+	-- Comments
+	{
+		"numToStr/Comment.nvim",
+		opts = {},
+	},
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = { signs = false },
 	},
 }

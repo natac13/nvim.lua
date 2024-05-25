@@ -19,6 +19,7 @@ return {
 			function()
 				vim.cmd([[Neotree buffers focus float]])
 			end,
+			desc = "Open NeoTree buffers in floating window",
 		},
 	},
 	deactivate = function()

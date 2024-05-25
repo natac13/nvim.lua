@@ -50,6 +50,13 @@ return {
 			lualine_y = {},
 			lualine_z = {},
 		},
-		extensions = { "neo-tree", "lazy" },
+		extensions = {
+			"fugitive",
+			"lazy",
+			"man",
+			"neo-tree",
+			"quickfix",
+			"trouble",
+		},
 	},
 }
