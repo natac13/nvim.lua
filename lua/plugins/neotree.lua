@@ -14,18 +14,16 @@ return {
 			end,
 			desc = "Explorer NeoTree (cwd)",
 		},
+		{
+			"<leader>oo",
+			function()
+				vim.cmd([[Neotree buffers focus float]])
+			end,
+			desc = "Open NeoTree buffers in floating window",
+		},
 	},
 	deactivate = function()
 		vim.cmd([[Neotree close]])
-	end,
-	init = function()
-		vim.g.neo_tree_remove_legacy_commands = 1
-		if vim.fn.argc() == 1 then
-			local stat = vim.loop.fs_stat(vim.fn.argv(0))
-			if stat and stat.type == "directory" then
-				require("neo-tree")
-			end
-		end
 	end,
 	opts = {
 		filesystem = {
@@ -34,6 +32,7 @@ return {
 			use_libuv_file_watcher = true,
 		},
 		window = {
+			width = 30,
 			mappings = {
 				["<space>"] = "none",
 				["l"] = "open",
@@ -51,6 +50,7 @@ return {
 		},
 	},
 	config = function(_, opts)
+		-- vim.keymap.set("n", "<leader><S-e>", "<cmd>Neotree buffers focus float<CR>", { noremap = true, silent = true })
 		vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 		require("neo-tree").setup(opts)
