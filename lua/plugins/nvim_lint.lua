@@ -2,14 +2,15 @@ return {
 	{ -- Linting
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
-		enabled = false,
+		enabled = true,
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
-				-- javascript = { 'eslint_d' },
-				-- typescript = { 'eslint_d' },
-				-- typescriptreact = { 'eslint_d' },
+				-- javascript = { "eslint" },
+				-- typescript = { "eslint" },
+				-- typescriptreact = { "eslint" },
+				-- javascriptreact = { "eslint" },
 			}
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.

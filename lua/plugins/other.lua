@@ -20,6 +20,15 @@ return {
 				":lua require('bufdelete').bufdelete(0, false)<cr>",
 				{ noremap = true, silent = true, desc = "Delete buffer" }
 			)
+			vim.keymap.set("n", "<leader>bD", function()
+				local bufs = vim.api.nvim_list_bufs()
+				local current_buf = vim.api.nvim_get_current_buf()
+				for _, i in ipairs(bufs) do
+					if i ~= current_buf then
+						vim.api.nvim_buf_delete(i, {})
+					end
+				end
+			end, { noremap = true, silent = true, desc = "Delete all buffers except current" })
 		end,
 	},
 	-- Neovim plugin to improve the default vim.ui interfaces

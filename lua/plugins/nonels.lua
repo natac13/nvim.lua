@@ -1,8 +1,10 @@
 return {
 	"nvimtools/none-ls.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	enabled = false,
 	dependencies = {
 		"jay-babu/mason-null-ls.nvim",
+		"gbprod/none-ls-shellcheck.nvim",
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
@@ -14,18 +16,17 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
-				"eslint_d", -- js linter
+				-- "eslint_d", -- js linter
 				-- "golangci_lint", -- go linter
 				-- "terraform_fmt", -- terraform formatter
 				-- "terraform_validate", -- terraform linter
-				"shellcheck", -- shell linter
 				"yamllint", -- yaml linter
-				"buf",    -- buf formatter
-				"shfmt",  -- shell formatter
+				"buf", -- buf formatter
+				"shfmt", -- shell formatter
 				-- "gofumpt", -- go formatter
 				"yamlfmt", -- yaml formatter
 				-- "spell", -- spell checker
-				"black",  -- python formatter
+				"black", -- python formatter
 			},
 			automatic_installation = true,
 		})
@@ -39,9 +40,10 @@ return {
 		vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "[L]anaguage [F]ormat" })
 
 		null_ls.setup({
-
 			root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
 			sources = {
+				require("none-ls-shellcheck.diagnostics"),
+				require("none-ls-shellcheck.code_actions"),
 				formatting.prettier, -- javascript, typescript, css, html, json, yaml, markdown
 				formatting.stylua, -- lua
 				formatting.goimports, -- go
@@ -55,14 +57,14 @@ return {
 				formatting.black,
 
 				-- linting
-				-- lint.eslint,
+				-- diagnostics.eslint_d,
 				diagnostics.staticcheck, -- go
 				diagnostics.hadolint, -- dockerfile
 				diagnostics.terraform_validate,
 				diagnostics.yamllint,
 
 				-- code actions
-				-- action.eslint,
+				-- code_actions.eslint_d,
 				code_actions.gitsigns,
 				code_actions.refactoring,
 			},

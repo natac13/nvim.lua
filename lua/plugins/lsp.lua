@@ -101,18 +101,18 @@ return { -- LSP Configuration & Plugins
 
 				-- Opens a popup that displays documentation about the word under your cursor
 				--  See `:help K` for why this keymap.
-				-- map("K", vim.lsp.buf.hover, "Hover Documentation")
-				map("K", function()
-					local current_buf = vim.api.nvim_get_current_buf()
-					local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-					local diagnostics = vim.diagnostic.get(current_buf, { lnum = line_nr })
-					if #diagnostics > 0 then
-						vim.diagnostic.open_float(diagnostics, { focus = false })
-					else
-						vim.lsp.buf.hover()
-					end
-				end, "Hover Documentation")
-
+				map("K", vim.lsp.buf.hover, "Hover Documentation")
+				-- map("K", function()
+				-- 	local current_buf = vim.api.nvim_get_current_buf()
+				-- 	local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+				-- 	local diagnostics = vim.diagnostic.get(current_buf, { lnum = line_nr })
+				-- 	if #diagnostics > 0 then
+				-- 		vim.diagnostic.open_float(diagnostics, { focus = false })
+				-- 	else
+				-- 		vim.lsp.buf.hover()
+				-- 	end
+				-- end, "Hover Documentation")
+				map("gl", vim.diagnostic.open_float, "Open Diagnostic Float")
 				map("gs", vim.lsp.buf.signature_help, "Signature [H]elp")
 
 				-- WARN: This is not Goto Definition, this is Goto Declaration.
@@ -154,6 +154,15 @@ return { -- LSP Configuration & Plugins
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+		-- local function organize_imports()
+		-- 	local params = {
+		-- 		command = "_typescript.organizeImports",
+		-- 		arguments = { vim.api.nvim_buf_get_name(0) },
+		-- 	}
+		-- 	vim.lsp.buf.execute_command(params)
+		-- end
+
+		-- Typescript specific configuration
 		vim.keymap.set("n", "<leader>oi", function()
 			vim.lsp.buf.execute_command({
 				command = "_typescript.organizeImports",
@@ -192,7 +201,7 @@ return { -- LSP Configuration & Plugins
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			tsserver = {},
-			--
+			tailwindcss = {},
 
 			lua_ls = {
 				-- cmd = {...},
@@ -253,6 +262,15 @@ return { -- LSP Configuration & Plugins
 			},
 		})
 
+		require("lspconfig").eslint.setup({
+			on_attach = function(client, bufnr)
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					buffer = bufnr,
+					command = "EslintFixAll",
+				})
+			end,
+		})
+
 		vim.diagnostic.config({
 			virtual_text = true,
 			underline = true,
@@ -265,6 +283,10 @@ return { -- LSP Configuration & Plugins
 				header = "",
 				prefix = "",
 			},
+		})
+		-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
 		})
 	end,
 }

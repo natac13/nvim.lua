@@ -1,7 +1,7 @@
 return { -- Autoformat
 	"stevearc/conform.nvim",
 	lazy = false,
-	enabled = false,
+	enabled = true,
 	event = { "LspAttach", "BufReadPost", "BufNewFile" },
 	keys = {
 		{

@@ -30,6 +30,12 @@ return {
 			bind_to_cwd = false,
 			follow_current_file = true,
 			use_libuv_file_watcher = true,
+			filtered_items = {
+				visible = true,
+				-- hide_dotfiles = true,
+				-- hide_gitignored = true,
+				-- hide_hidden = true, -- only works on Windows for hidden files/directories
+			},
 		},
 		window = {
 			width = 30,
