@@ -259,7 +259,12 @@ return { -- LSP Configuration & Plugins
 				"gopls",
 				"tsserver",
 				"rust_analyzer",
-				"cspell",
+				"biome",
+				"eslint",
+				"ruff_lsp",
+				"tailwindcss",
+				"clangd",
+				"pylsp",
 			},
 		})
 
