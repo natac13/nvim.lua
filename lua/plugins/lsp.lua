@@ -202,7 +202,7 @@ return { -- LSP Configuration & Plugins
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			tsserver = {},
 			tailwindcss = {},
-
+			biome = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = { ...},
@@ -259,6 +259,7 @@ return { -- LSP Configuration & Plugins
 				"gopls",
 				"tsserver",
 				"rust_analyzer",
+				"cspell",
 			},
 		})
 

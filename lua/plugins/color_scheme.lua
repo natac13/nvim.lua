@@ -10,6 +10,7 @@ return {
 				no_italic = true,
 				term_colors = true,
 				flavour = "mocha",
+				default_integrations = true,
 				integrations = {
 					cmp = true,
 					fidget = true,
@@ -30,14 +31,14 @@ return {
 					treesitter_context = true,
 					which_key = true,
 				},
-				color_overrides = {
-					mocha = {
-						pink = "#f4b8e4",
-						base = "#1d2021",
-						mantle = "#191b1c",
-						crust = "#141617",
-					},
-				},
+				-- color_overrides = {
+				-- 	mocha = {
+				-- 		pink = "#f4b8e4",
+				-- 		base = "#1d2021",
+				-- 		mantle = "#191b1c",
+				-- 		crust = "#141617",
+				-- 	},
+				-- },
 			})
 
 			vim.cmd.colorscheme("catppuccin")
