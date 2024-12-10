@@ -38,6 +38,7 @@ return { -- Autoformat
 			typescriptreact = { { "prettierd", "prettier" } },
 			markdown = { { "prettierd", "prettier" } },
 			json = { { "prettierd", "prettier" } },
+			yaml = { { "prettierd", "prettier" } },
 		},
 	},
 }

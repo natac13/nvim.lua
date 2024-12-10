@@ -170,6 +170,11 @@ return { -- LSP Configuration & Plugins
 			})
 		end, { desc = "[S]earch [H]elp" })
 
+		local biome_exists = vim.fn.findfile("biome.json", vim.loop.cwd()) ~= ""
+		local eslint_exists = vim.fn.findfile(".eslintrc.json", vim.loop.cwd()) ~= ""
+			or vim.fn.findfile(".eslintrc.js", vim.loop.cwd()) ~= ""
+			or vim.fn.findfile(".eslintrc", vim.loop.cwd()) ~= ""
+
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 		--
@@ -202,7 +207,7 @@ return { -- LSP Configuration & Plugins
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			tsserver = {},
 			tailwindcss = {},
-			biome = {},
+			-- biome = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = { ...},
@@ -221,6 +226,10 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 		}
+
+		if biome_exists then
+			servers.biome = {}
+		end
 
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install
@@ -268,14 +277,16 @@ return { -- LSP Configuration & Plugins
 			},
 		})
 
-		require("lspconfig").eslint.setup({
-			on_attach = function(client, bufnr)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
-		})
+		if eslint_exists then
+			require("lspconfig").eslint.setup({
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end,
+			})
+		end
 
 		vim.diagnostic.config({
 			virtual_text = true,

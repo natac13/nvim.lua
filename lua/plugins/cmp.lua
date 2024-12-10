@@ -89,7 +89,8 @@ return { -- Autocompletion
 					select = true,
 				}),
 
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<CR>"] = cmp.config.disable,
+				-- ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
 				-- Manually trigger a completion from nvim-cmp.
 				--  Generally you don't need this, because nvim-cmp will display
