@@ -154,21 +154,20 @@ return { -- LSP Configuration & Plugins
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		-- local function organize_imports()
-		-- 	local params = {
-		-- 		command = "_typescript.organizeImports",
-		-- 		arguments = { vim.api.nvim_buf_get_name(0) },
-		-- 	}
-		-- 	vim.lsp.buf.execute_command(params)
-		-- end
-
 		-- Typescript specific configuration
 		vim.keymap.set("n", "<leader>oi", function()
-			vim.lsp.buf.execute_command({
-				command = "_typescript.organizeImports",
-				arguments = { vim.api.nvim_buf_get_name(0) },
+			-- vim.lsp.buf.execute_command({
+			-- 	command = "typescript.organizeImports",
+			-- 	arguments = { vim.api.nvim_buf_get_name(0) },
+			-- })
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = {
+					only = { "source.organizeImports" },
+					diagnostics = {},
+				},
 			})
-		end, { desc = "[S]earch [H]elp" })
+		end, { desc = "[O]rganize [I]mports" })
 
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -194,14 +193,55 @@ return { -- LSP Configuration & Plugins
 			},
 			pyright = {},
 			rust_analyzer = {},
-			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-			--
-			-- Some languages (like typescript) have entire language plugins that can be useful:
-			--    https://github.com/pmizio/typescript-tools.nvim
-			--
-			-- But for many setups, the LSP (`tsserver`) will work just fine
-			tsserver = {},
+			ts_ls = {
+				enabled = false,
+			},
+			vtsls = {
+				on_attach = function()
+					-- create a command function to restart typescript lsp
+					vim.api.nvim_create_user_command("RestartTsServer", function()
+						vim.lsp.buf.execute_command({
+							command = "typescript.restartTsServer",
+							arguments = {},
+						})
+					end, {})
+					vim.api.nvim_create_user_command("TypescriptVersion", function()
+						vim.lsp.buf.execute_command({
+							command = "typescript.selectTypeScriptVersion",
+							arguments = {},
+						})
+					end, {})
+				end,
+				settings = {
+					vtsls = {
+						autoUseWorkspaceTsdk = true,
+						enableMoveToFileCodeAction = true,
+					},
+					typescript = {
+						preferences = {
+							importModuleSpecifier = "relative",
+							importModuleSpecifierEnding = "minimal",
+							preferTypeOnlyAutoImports = true,
+						},
+					},
+					javascript = {
+						preferences = {
+							importModuleSpecifier = "relative",
+							importModuleSpecifierEnding = "minimal",
+							preferTypeOnlyAutoImports = true,
+						},
+					},
+				},
+			},
 			tailwindcss = {},
+			eslint = {
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end,
+			},
 			biome = {},
 			lua_ls = {
 				-- cmd = {...},
@@ -257,24 +297,15 @@ return { -- LSP Configuration & Plugins
 			ensure_installed = {
 				"lua_ls",
 				"gopls",
-				"tsserver",
+				"ts_ls",
 				"rust_analyzer",
 				"biome",
 				"eslint",
-				"ruff_lsp",
+				"ruff",
 				"tailwindcss",
 				"clangd",
 				"pylsp",
 			},
-		})
-
-		require("lspconfig").eslint.setup({
-			on_attach = function(client, bufnr)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
 		})
 
 		vim.diagnostic.config({
@@ -283,7 +314,7 @@ return { -- LSP Configuration & Plugins
 			signs = true,
 			severity_sort = true,
 			float = {
-				source = "always",
+				source = true,
 				style = "minimal",
 				border = "rounded",
 				header = "",
