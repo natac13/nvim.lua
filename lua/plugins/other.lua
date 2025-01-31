@@ -84,15 +84,6 @@ return {
 			-- configurations go here
 		},
 	},
-	-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API
-	{
-		"folke/neodev.nvim",
-		config = function()
-			require("neodev").setup({
-				library = { plugins = { "neotest" }, types = true },
-			})
-		end,
-	},
 	-- persist sessions
 	{
 		"folke/persistence.nvim",

@@ -14,6 +14,7 @@ return { -- Autoformat
 		},
 	},
 	opts = {
+		log_level = vim.log.levels.DEBUG,
 		notify_on_error = true,
 		format_on_save = function(bufnr)
 			-- Disable "format_on_save lsp_fallback" for languages that don't
@@ -27,17 +28,26 @@ return { -- Autoformat
 		end,
 		formatters_by_ft = {
 			lua = { "stylua" },
-			-- Conform can also run multiple formatters sequentially
-			-- python = { "isort", "black" },
 			go = { "goimports", "gofmt" },
-			--
-			-- You can use a sub-list to tell conform to run *until* a formatter
-			-- is found.
-			javascript = { { "prettierd", "prettier" } },
-			typescript = { { "prettierd", "prettier" } },
-			typescriptreact = { { "prettierd", "prettier" } },
-			markdown = { { "prettierd", "prettier" } },
-			json = { { "prettierd", "prettier" } },
+			javascript = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+			json = { "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "prettierd", "prettier", stop_after_first = true },
+			css = { "prettierd", "prettier", stop_after_first = true },
+			graphql = { "prettierd", "prettier", stop_after_first = true },
+			vue = { "prettierd", "prettier", stop_after_first = true },
+			html = { "prettierd", "prettier", stop_after_first = true },
+			markdown = { "prettierd", "prettier", stop_after_first = true },
+			yaml = { "prettierd", "prettier", stop_after_first = true },
+			astro = { "prettierd", "prettier", stop_after_first = true },
+			toml = { "prettierd", "prettier", stop_after_first = true },
+		},
+		formatters = {
+			biome = {
+				require_cwd = true,
+			},
 		},
 	},
 }

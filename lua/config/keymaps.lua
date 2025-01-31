@@ -1,58 +1,45 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-
 local keymap = vim.keymap -- for conciseness
-
--- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", {
 	silent = true,
 	noremap = true,
 	desc = "Exit insert mode",
 })
 
--- Move selected line / block of text in visual mode
+keymap.set("n", "<leader>z", "<cmd>.lua<CR>", { desc = "Execute the current line" })
+keymap.set("n", "<leader>Z", "<cmd>source %<CR>", { desc = "Execute the current file" })
+
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", {
 	noremap = true,
 	silent = true,
-	desc = "Move selected lines down",
+	desc = "Move visually selected line(s) down",
 })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", {
 	noremap = true,
 	silent = true,
-	desc = "Move selected lines up",
+	desc = "Move visually selected line(s) up",
 })
 
--- Fast saving
 keymap.set("n", "<Leader>w", ":write!<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "Save file",
 })
--- keymap.set("n", "<Leader>q", ":q!<CR>", {
--- 	noremap = true,
--- 	silent = true,
--- 	desc = "Quit file",
--- })
 
--- better indenting
-keymap.set("v", "<", "<gv")
-keymap.set("v", ">", ">gv")
+keymap.set("v", "<", "<gv", { desc = "Indent left" })
+keymap.set("v", ">", ">gv", { desc = "Indent right" })
 
--- paste over currently selected text without yanking it
-keymap.set("v", "p", '"_dp')
-keymap.set("v", "P", '"_dP')
-
--- delete single character without copying into register
+keymap.set("v", "p", '"_dp', { desc = "Paste over currently selected text without yanking it" })
+keymap.set("v", "P", '"_dP', { desc = "Paste over currently selected text without yanking it" })
 keymap.set("n", "x", '"_x', {
 	noremap = true,
 	silent = true,
-	desc = "Delete character without copying",
+	desc = "Delete character without copying to register",
 })
 
--- clear search highlights
 keymap.set("n", "<leader><ENTER>", ":nohl<CR>", { desc = "[C]lear search highlights" })
 
--- Navigate buffers
 keymap.set("n", "<S-l>", ":bnext<CR>", {
 	silent = true,
 	noremap = true,
@@ -64,11 +51,10 @@ keymap.set("n", "<S-h>", ":bprevious<CR>", {
 	desc = "Previous buffer",
 })
 
--- smart way to move between windows
-keymap.set("n", "<C-j>", "<C-W>j", { silent = true })
-keymap.set("n", "<C-k>", "<C-W>k", { silent = true })
-keymap.set("n", "<C-l>", "<C-W>l", { silent = true })
-keymap.set("n", "<C-h>", "<C-W>h", { silent = true })
+keymap.set("n", "<C-j>", "<C-W>j", { silent = true, desc = "Move to window below" })
+keymap.set("n", "<C-k>", "<C-W>k", { silent = true, desc = "Move to window above" })
+keymap.set("n", "<C-l>", "<C-W>l", { silent = true, desc = "Move to window right" })
+keymap.set("n", "<C-h>", "<C-W>h", { silent = true, desc = "Move to window left" })
 
 -- remap for dealing with word wrap
 keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
@@ -96,13 +82,11 @@ keymap.set("n", "<leader>sx", ":close<CR>", {
 	silent = true,
 })
 
--- Panes resizing
-keymap.set("n", "+", ":resize +5<CR>")
-keymap.set("n", "_", ":resize -5<CR>")
-keymap.set("n", "=", ":vertical resize +5<CR>")
-keymap.set("n", "-", ":vertical resize -5<CR>")
+keymap.set("n", "+", ":resize +5<CR>", { desc = "Increase window height" })
+keymap.set("n", "_", ":resize -5<CR>", { desc = "Decrease window height" })
+keymap.set("n", "=", ":vertical resize +5<CR>", { desc = "Increase window width" })
+keymap.set("n", "-", ":vertical resize -5<CR>", { desc = "Decrease window width" })
 
--- disable default <Space> keymap
 keymap.set({ "n", "v" }, "<Space>", "<Nop>", {
 	noremap = true,
 	silent = true,

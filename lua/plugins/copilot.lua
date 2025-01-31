@@ -58,4 +58,50 @@ return {
 	-- {
 	--   "github/copilot.vim",
 	-- },
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			-- { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+		},
+		build = "make tiktoken", -- Only on MacOS or Linux
+		opts = {
+			debug = true,
+			-- See Configuration section for options
+			mappings = {
+				complete = {
+					insert = "<TAB>",
+				},
+				submit_prompt = {
+					normal = "<CR>",
+					insert = "<C-s>",
+				},
+				accept_diff = {
+					normal = "<C-d>",
+					insert = "<C-d>",
+				},
+			},
+		},
+		config = function(_, opts)
+			local chat = require("CopilotChat")
+			chat.setup(opts)
+
+			vim.keymap.set("n", "<leader>ccq", function()
+				local input = vim.fn.input("Quick Chat: ")
+				if input ~= "" then
+					chat.ask(input, { selection = require("CopilotChat.select").buffer })
+				end
+			end, {
+				desc = "CopilotChat - Quick chat",
+			})
+
+			vim.keymap.set("n", "<leader>ccp", function()
+				local actions = require("CopilotChat.actions")
+				require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+			end, {
+				desc = "CopilotChat - Prompt",
+			})
+		end,
+	},
 }
