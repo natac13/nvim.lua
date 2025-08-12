@@ -6,29 +6,45 @@ return {
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
-				no_bold = true,
+				no_bold = false, -- Enable bold for better contrast
 				no_italic = true,
 				term_colors = true,
 				flavour = "mocha",
 				default_integrations = true,
 				integrations = {
+					alpha = true,
+					barbecue = { alt_background = true },
 					cmp = true,
 					fidget = true,
 					gitsigns = true,
 					harpoon = true,
 					indent_blankline = {
-						enabled = false,
-						scope_color = "sapphire",
+						enabled = true,
+						scope_color = "lavender",
 						colored_indent_levels = false,
 					},
 					mason = true,
-					native_lsp = { enabled = true },
-					noice = true,
+					native_lsp = { 
+						enabled = true,
+						virtual_text = {
+							errors = { "italic" },
+							hints = { "italic" },
+							warnings = { "italic" },
+							information = { "italic" },
+						},
+						underlines = {
+							errors = { "underline" },
+							hints = { "underline" },
+							warnings = { "underline" },
+							information = { "underline" },
+						},
+					},
+					neotree = true,
 					notify = true,
-					symbols_outline = true,
-					telescope = true,
+					telescope = false,
 					treesitter = true,
 					treesitter_context = true,
+					ufo = true,
 					which_key = true,
 				},
 				-- color_overrides = {

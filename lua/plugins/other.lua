@@ -2,34 +2,9 @@ return {
 	{
 		"tpope/vim-surround",
 	},
-	{
-		"tpope/vim-sleuth",
-	},
 	-- Neovim notification and LSP progress messages
 	{
 		"tpope/vim-fugitive",
-	},
-	-- delete buffer
-	{
-		"famiu/bufdelete.nvim",
-		event = "VeryLazy",
-		config = function()
-			vim.keymap.set(
-				"n",
-				"<leader>bd",
-				":lua require('bufdelete').bufdelete(0, false)<cr>",
-				{ noremap = true, silent = true, desc = "Delete buffer" }
-			)
-			vim.keymap.set("n", "<leader>bD", function()
-				local bufs = vim.api.nvim_list_bufs()
-				local current_buf = vim.api.nvim_get_current_buf()
-				for _, i in ipairs(bufs) do
-					if i ~= current_buf then
-						vim.api.nvim_buf_delete(i, {})
-					end
-				end
-			end, { noremap = true, silent = true, desc = "Delete all buffers except current" })
-		end,
 	},
 	-- Neovim plugin to improve the default vim.ui interfaces
 	{
@@ -58,7 +33,20 @@ return {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
-		opts = {},
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			indent = { 
+				char = "│",
+				tab_char = "│",
+			},
+			scope = { enabled = false },
+			exclude = {
+				filetypes = { 
+					"help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason",
+					"notify", "toggleterm", "lazyterm"
+				},
+			},
+		},
 	},
 	-- Comments
 	{
@@ -71,7 +59,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
-	-- VSCode like breadcrumbs
+	-- VSCode like breadcrumbs (lualine doesn't have this)
 	{
 		"utilyre/barbecue.nvim",
 		name = "barbecue",

@@ -6,10 +6,11 @@ return {
 	},
 	opts = {
 		options = {
-			-- theme = "gruvbox-material",
 			theme = "catppuccin",
-			section_separators = "",
-			component_separators = "",
+			section_separators = { left = "", right = "" },
+			component_separators = { left = "", right = "" },
+			globalstatus = true,
+			disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
 			-- component_separators = { left = "", right = "" },
 			-- section_separators = { left = "", right = "" },
 		},

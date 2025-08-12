@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "additionalDirectories": [
+      "/Users/natac/Library/Application Support/Code/User/"
+    ]
+  }
+}

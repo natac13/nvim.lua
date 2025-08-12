@@ -47,6 +47,7 @@ return {
 			})
 		end,
 	},
+	-- Supermaven AI assistant (commented out in favor of Copilot)
 	-- {
 	-- 	"supermaven-inc/supermaven-nvim",
 	-- 	lazy = false,

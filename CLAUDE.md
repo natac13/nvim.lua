@@ -124,4 +124,3 @@ Each plugin is configured in its own file under `lua/plugins/` and returns a tab
 
 - `RestartTsServer` - Restart TypeScript language server
 - `TypescriptVersion` - Select TypeScript version
-

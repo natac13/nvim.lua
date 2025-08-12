@@ -9,7 +9,6 @@ keymap.set("i", "jk", "<ESC>", {
 
 keymap.set("n", "<leader>z", "<cmd>.lua<CR>", { desc = "Execute the current line" })
 keymap.set("n", "<leader>Z", "<cmd>source %<CR>", { desc = "Execute the current file" })
-
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", {
 	noremap = true,
 	silent = true,
@@ -39,6 +38,26 @@ keymap.set("n", "x", '"_x', {
 })
 
 keymap.set("n", "<leader><ENTER>", ":nohl<CR>", { desc = "[C]lear search highlights" })
+
+-- Copy relative file path
+keymap.set("n", "<leader>yr", function()
+	local str = vim.fn.expand("%:.")
+	vim.fn.setreg('"', str)
+	vim.fn.setreg("+", str)
+	vim.notify(" " .. str)
+end, { desc = " Copy relative path" })
+
+-- Buffer management (native Neovim)
+keymap.set("n", "<leader>bd", ":bdelete<CR>", { noremap = true, silent = true, desc = "Delete buffer" })
+keymap.set("n", "<leader>bD", function()
+	local bufs = vim.api.nvim_list_bufs()
+	local current_buf = vim.api.nvim_get_current_buf()
+	for _, i in ipairs(bufs) do
+		if i ~= current_buf and vim.api.nvim_buf_is_loaded(i) then
+			vim.api.nvim_buf_delete(i, { force = false })
+		end
+	end
+end, { noremap = true, silent = true, desc = "Delete all buffers except current" })
 
 keymap.set("n", "<S-l>", ":bnext<CR>", {
 	silent = true,
