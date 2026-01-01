@@ -21,6 +21,13 @@ return {
 			end,
 			desc = "Open NeoTree buffers in floating window",
 		},
+		{
+			"<leader>ge",
+			function()
+				vim.cmd([[Neotree git_status focus float]])
+			end,
+			desc = "Open NeoTree git status",
+		},
 	},
 	deactivate = function()
 		vim.cmd([[Neotree close]])
@@ -35,6 +42,20 @@ return {
 				-- hide_dotfiles = true,
 				-- hide_gitignored = true,
 				-- hide_hidden = true, -- only works on Windows for hidden files/directories
+			},
+		},
+		git_status = {
+			window = {
+				position = "float",
+				mappings = {
+					["A"] = "git_add_all",
+					["gu"] = "git_unstage_file",
+					["ga"] = "git_add_file",
+					["gr"] = "git_revert_file",
+					["gc"] = "git_commit",
+					["gp"] = "git_push",
+					["gg"] = "git_commit_and_push",
+				},
 			},
 		},
 		window = {
