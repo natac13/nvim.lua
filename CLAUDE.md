@@ -39,6 +39,10 @@ This is a modern Neovim configuration using Lazy.nvim as the plugin manager. The
 - **Which-key**: Keybinding help
 - **Treesitter**: Advanced syntax highlighting
 - **nvim-cmp**: Autocompletion
+- **Harpoon**: Quick file navigation
+- **Barbecue**: LSP breadcrumbs
+- **Todo-comments**: Comment highlighting
+- **Persistence**: Session management
 
 ## Common Development Tasks
 
@@ -93,8 +97,9 @@ No specific test runner configured - depends on project-specific setup.
 
 - 2-space indentation for most languages
 - Format on save enabled for most filetypes (except C/C++)
+- Biome formatter preferred over Prettier when `biome.json` exists
 - Auto-organize imports for TypeScript
-- ESLint auto-fix on save
+- Support for multiple formatters: stylua (Lua), goimports/gofmt (Go), biome/prettier (JS/TS)
 
 ### Window Management
 
@@ -124,3 +129,16 @@ Each plugin is configured in its own file under `lua/plugins/` and returns a tab
 
 - `RestartTsServer` - Restart TypeScript language server
 - `TypescriptVersion` - Select TypeScript version
+
+### Additional Key Bindings
+
+- `jk` in insert mode - Exit to normal mode
+- `<leader>z` - Execute current line as Lua
+- `<leader>Z` - Execute current file
+- `<leader>w` - Save file
+- `<leader>yr` - Copy relative file path
+- `<leader>bd` - Delete buffer
+- `<leader>bD` - Delete all buffers except current
+- `<leader>qs` - Restore session for current directory
+- `<leader>ql` - Restore last session
+- `<leader>qd` - Stop session persistence
